@@ -15,3 +15,6 @@ require_once WPMU_PLUGIN_DIR . '/includes/quote.php';
 
 // Testimonial
 require_once WPMU_PLUGIN_DIR . '/includes/testimonial.php';
+
+// Event
+require_once WPMU_PLUGIN_DIR . '/includes/event.php';
