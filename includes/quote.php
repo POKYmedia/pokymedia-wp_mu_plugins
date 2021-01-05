@@ -60,12 +60,17 @@ class Quote_MetaBoxes
         });
 
         // save the quote post type
-        add_action('save_post', [$this, 'save_quote']);
+        add_action('save_post_quote', [$this, 'save_quote']);
+        add_filter('wp_insert_post_data', [$this, 'update_quote_title'], 10, 2);
     }
 
     public function meta_box_html()
     {
         $author = get_post_meta(get_the_ID(), 'pokymedia-quote_author', true);
+
+        // nonce security field
+        wp_nonce_field('save_quote', 'quote_nonce');
+
         ?>
         <label for="pokymedia-quote_author"><?php _e('Author', 'pokymedia') ?>:
             <input type="text" name="pokymedia-quote_author" class="all-options" value="<?php echo $author ?>">
@@ -75,42 +80,55 @@ class Quote_MetaBoxes
 
     public function save_quote($post_id)
     {
+        // Check if nonce is set
+        if (!isset($_POST['quote_nonce'])) {
+            return $post_id;
+        }
+
+        if (!wp_verify_nonce($_POST['quote_nonce'], 'save_quote')) {
+            return $post_id;
+        }
+
+        // Save author if exists
         $author = $_POST['pokymedia-quote_author'];
         if (isset($author) && is_string($author)) {
             $author = sanitize_text_field($author);
             update_post_meta($post_id, 'pokymedia-quote_author', $author);
         }
     }
+
+    function update_quote_title($data, $post)
+    {
+        if (
+            $data['post_type'] == 'quote' &&
+            $data['post_status'] != 'auto-draft' &&
+            $_GET['action'] != 'trash' &&
+            $_GET['action'] != 'untrash'
+        ) {
+            $title = '';
+
+            // Start title with author if exists
+            $author = $post['pokymedia-quote_author'];
+            if (isset($author) && is_string($author)) {
+                $author = sanitize_text_field($author);
+
+                // Append the author to the title if exists
+                if (!empty($author)) {
+                    $title .= $author . ' - ';
+                }
+            }
+
+            $title .= wp_trim_words(($data['post_content']), 10);
+
+            // save the title as post title
+            $data['post_title'] = $title;
+        }
+
+        return $data;
+    }
 }
 
 new Quote_MetaBoxes();
-
-
-// Modify title in Admin UI
-add_action(
-    'admin_head-edit.php',
-    function () {
-        global $post;
-        if ('quote' === $post->post_type) {
-            add_filter('the_title',
-                function () use ($post) {
-                    $title = '';
-
-                    // Append the author to the title if exists
-                    $author = get_post_meta(get_the_ID(), 'pokymedia-quote_author', 1);
-                    if (isset($author) && !empty($author)) {
-                        $title .= sanitize_text_field($author) . ' - ';
-                    }
-
-                    // Get sneak peek of content
-                    $title .= wp_trim_words(get_the_content($post), 10);
-
-                    return $title;
-                });
-        }
-    }
-);
-
 
 
 
