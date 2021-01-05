@@ -1,7 +1,10 @@
 <?php
 
+// Event type taxonomy
+require_once WPMU_PLUGIN_DIR . '/includes/event-type-taxonomy.php';
+
 add_action('init', function () {
-    $labels = array(
+    $labels = [
         'name' => __('Events', 'pokymedia'),
         'singular_name' => __('Event', 'pokymedia'),
         'menu_name' => __('Events', 'pokymedia'),
@@ -22,7 +25,7 @@ add_action('init', function () {
         'filter_items_list' => __('Filter events list', 'pokymedia'),
         'items_list_navigation' => __('Events list navigation', 'pokymedia'),
         'items_list' => __('Events list', 'pokymedia'),
-    );
+    ];
 
 
     register_post_type('event', [
@@ -33,7 +36,8 @@ add_action('init', function () {
         'supports' => [
             'title', 'thumbnail'
         ],
-        'menu_position' => 4
+        'menu_position' => 4,
+        'taxonomies' => ['event_type']
     ]);
 });
 
