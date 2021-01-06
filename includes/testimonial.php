@@ -36,7 +36,7 @@ add_action('init', function () {
         'has_archive' => false,
         'rewrite' => ['slug' => 'testimonials'],
         'supports' => [
-            'title', 'thumbnail'
+            'title', 'thumbnail','editor'
         ],
         'menu_position' => 7
     ]);

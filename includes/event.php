@@ -34,7 +34,7 @@ add_action('init', function () {
         'menu_icon' => 'dashicons-camera-alt',
         'rewrite' => ['slug' => 'events'],
         'supports' => [
-            'title', 'thumbnail'
+            'title', 'thumbnail','editor'
         ],
         'menu_position' => 4,
         'taxonomies' => ['event_type']
