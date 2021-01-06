@@ -41,10 +41,3 @@ add_action('init', function () {
     ]);
 });
 
-// Set main query post_type to events
-add_action('pre_get_posts', function ($query) {
-    if ($query->is_main_query() && !is_admin()) {
-        $query->set('post_type', 'event');
-        $query->set('posts_per_page', -1);
-    };
-});
