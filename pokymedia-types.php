@@ -18,3 +18,11 @@ require_once WPMU_PLUGIN_DIR . '/includes/testimonial.php';
 
 // Event
 require_once WPMU_PLUGIN_DIR . '/includes/event.php';
+
+
+// redirect on homepage
+add_action("template_redirect", function () {
+    if (is_front_page()) {
+        return wp_redirect(get_term_link('svadobne', 'event_type'));
+    }
+});
