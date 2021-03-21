@@ -41,3 +41,20 @@ add_filter('upload_mimes', function ($mimes) use ($svg_mimes) {
     $mimes = array_merge($mimes, $svg_mimes);
     return $mimes;
 });
+
+add_filter('get_custom_logo', function () {
+    $html = '<a href="' . get_site_url() . '">';
+    $custom_logo_id = get_theme_mod('custom_logo');
+
+    // If logo is svg image, print inline contents
+    if (is_svg($custom_logo_id)) {
+        $html .= '<div class="fill-current">' . load_inline_svg($custom_logo_id) . '</div>';
+    } else {
+        $logo = wp_get_attachment_image_url($custom_logo_id);
+        $html .= '<img src="'. esc_url($logo).'" alt="'.get_bloginfo('name') .'">';
+    }
+
+    $html .= '</a>';
+
+    return $html;
+});
