@@ -24,7 +24,7 @@ require_once WPMU_PLUGIN_DIR . '/includes/event.php';
 add_action("template_redirect", function () {
     if (is_front_page()) {
         $svadobne = get_term_link('svadobne', 'event_type');
-        if (false == $svadobne) {
+        if (false !== $svadobne) {
             return wp_redirect($svadobne);
         }
     }
