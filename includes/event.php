@@ -33,6 +33,7 @@ add_action('init', function () {
         'labels' => $labels,
         'menu_icon' => 'dashicons-camera-alt',
         'rewrite' => ['slug' => 'events'],
+        'show_in_rest' => true,
         'supports' => [
             'title', 'thumbnail','editor'
         ],
