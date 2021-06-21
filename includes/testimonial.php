@@ -6,7 +6,7 @@ add_action('init', function () {
         'singular_name' => __('Testimonial', 'pokymedia'),
         'menu_name' => __('Testimonials', 'pokymedia'),
         'name_admin_bar' => __('Testimonial', 'pokymedia'),
-        'add_new' => __('Add New', 'pokymedia'),
+        'add_new' => __('Add New Testimonial', 'pokymedia'),
         'add_new_item' => __('Add New Testimonial', 'pokymedia'),
         'new_item' => __('New Testimonial', 'pokymedia'),
         'edit_item' => __('Edit Testimonial', 'pokymedia'),

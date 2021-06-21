@@ -7,7 +7,7 @@ add_action('init', function () {
         'singular_name' => __('Quote', 'pokymedia'),
         'menu_name' => __('Quotes', 'pokymedia'),
         'name_admin_bar' => __('Quote', 'pokymedia'),
-        'add_new' => __('Add New', 'pokymedia'),
+        'add_new' => __('Add New Quote', 'pokymedia'),
         'add_new_item' => __('Add New Quote', 'pokymedia'),
         'new_item' => __('New Quote', 'pokymedia'),
         'edit_item' => __('Edit Quote', 'pokymedia'),

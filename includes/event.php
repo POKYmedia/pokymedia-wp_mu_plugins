@@ -9,7 +9,7 @@ add_action('init', function () {
         'singular_name' => __('Event', 'pokymedia'),
         'menu_name' => __('Events', 'pokymedia'),
         'name_admin_bar' => __('Event', 'pokymedia'),
-        'add_new' => __('Add New', 'pokymedia'),
+        'add_new' => __('Add New Event', 'pokymedia'),
         'add_new_item' => __('Add New Event', 'pokymedia'),
         'new_item' => __('New Event', 'pokymedia'),
         'edit_item' => __('Edit Event', 'pokymedia'),
