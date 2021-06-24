@@ -26,28 +26,30 @@ add_action('init', function () use ($taxonomy_key) {
 
     register_taxonomy($taxonomy_key, [], [
         'labels' => $labels,
-        'hierarchical' => false,
-        'public' => false,
+        'hierarchical' => true,
+        'public' => true,
         'publicly_queryable'=> true,
         'show_in_menu' => true,
         'show_ui' => true,
         'show_in_nav_menus' => true,
         'show_admin_column' => true,
-        'meta_box_cb' => function () use ($taxonomy_key) {
-            $terms = wp_get_object_terms(get_the_ID(), $taxonomy_key);
-            wp_dropdown_categories([
-                'taxonomy' => $taxonomy_key,
-                'option_none_value' => 0,
-                'id' => $terms[0]->term_id,
-                'value_field' => 'slug',
-                'hide_empty' => 0,
-                'name' => "tax_input[$taxonomy_key][]",
-                'selected' => $terms[0]->slug,
-                'orderby' => 'name',
-                'hierarchical' => 0,
-                'show_option_none' => __('Select Event Type', 'pokymedia')
-            ]);
-        },
+        'show_in_rest'      => true,
+       // Used for classic editor, not gutenberg
+//      'meta_box_cb' => function () use ($taxonomy_key) {
+//          $terms = wp_get_object_terms(get_the_ID(), $taxonomy_key);
+//            wp_dropdown_categories([
+//                'taxonomy' => $taxonomy_key,
+//                'option_none_value' => 0,
+//                'id' => $terms[0]->term_id,
+//                'value_field' => 'slug',
+//                'hide_empty' => 0,
+//                'name' => "tax_input[$taxonomy_key][]",
+//                'selected' => $terms[0]->slug,
+//                'orderby' => 'name',
+//                'hierarchical' => 0,
+//                'show_option_none' => __('Select Event Type', 'pokymedia')
+//          ]);
+//       },
         'rewrite' => ['slug' => 'types']
     ]);
 });
